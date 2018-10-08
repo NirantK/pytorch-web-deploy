@@ -23,9 +23,11 @@ class TheModelClass(nn.Module):
         x = self.fc3(x)
         return x
 
+
 model = TheModelClass()
 
 from pathlib import Path
+
 PATH = Path("models") / "cifar-weights.pt"
 PATH = PATH.resolve().absolute()
 model.load_state_dict(torch.load(str(PATH)))
