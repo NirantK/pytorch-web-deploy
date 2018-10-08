@@ -1,10 +1,32 @@
-pytorch-web-deploy
-==============================
+# PyTorch Web Deploy
 
 Simple, fast web deployment for your Pytorch models
 
-Project Organization
-------------
+## How to use this?
+
+### Use this as a template for deploying your models
+
+### Step 1
+
+```bash
+git clone https://github.com/NirantK/pytorch-web-deploy.git
+```
+
+### Step 2
+
+- Update your training script in ```src/models/train_model.py``` and model in ```src/models/model_class.py``` run the script to save model weights
+- For above, there is sample code already in those files, which you can use to get started
+- Replace your model in ```src/models/model_class.py```
+- Replace the model weights in ```models/*.pt```
+
+### Step 3
+
+- Start Webserver and check API endpoints with ```demo_request.py```, it is already written with one image at a time
+- Go to ```localhost:5000``` and get started!
+
+That's it, done!
+
+### Project Organization
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
@@ -20,7 +42,7 @@ Project Organization
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
+    │                         the creator's initials, and a short '-' delimited description, e.g.
     │                         `1.0-jqp-initial-data-exploration`.
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
@@ -51,7 +73,6 @@ Project Organization
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.testrun.org
 
+### Credits
 
---------
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+- [cookiecutter data science](https://drivendata.github.io/cookiecutter-data-science/) project template #cookiecutterdatascience
