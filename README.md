@@ -1,6 +1,8 @@
 # PyTorch Web Deploy
 
-Simple, fast web deployment for your Pytorch models
+**Simple & Fast** web deployment for your PyTorch models
+
+![Logo](assets/logo.png)
 
 ## How to use this?
 
