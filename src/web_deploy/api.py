@@ -48,8 +48,12 @@ def prepare_image(image_path):
 
 
 @app.route("/")
-@app.route("/predict", methods=["GET", "POST"])
-def predict():
+def index():
+    return flask.render_template("index.html")
+
+
+@app.route("/prediction", methods=["POST"])
+def html_predict():
     # Initialize the data dictionary that will be returned from the view.
     data = {"success": False}
 
@@ -65,9 +69,6 @@ def predict():
         "ship",
         "truck",
     )
-
-    if flask.request.method == "GET":
-        return flask.render_template("index.html")
 
     # Ensure an image was properly uploaded to our endpoint.
     if flask.request.method == "POST":
@@ -90,11 +91,54 @@ def predict():
             data["success"] = True
             os.remove(f.filename)
 
-    # Return the data dictionary as a JSON response
-    if data["success"]:
-        return flask.render_template("index.html", label=data["prediction"])
-    else:
-        return flask.jsonify(data)
+            # Return the prediction to HTML Template
+            if data["success"]:
+                return flask.render_template("index.html", label=data["prediction"])
+            else:
+                return flask.render_template("index.html", label="Prediction failed")
+
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    # Initialize the data dictionary that will be returned from the view.
+    data = {"success": False}
+
+    classes = (
+        "plane",
+        "car",
+        "bird",
+        "cat",
+        "deer",
+        "dog",
+        "frog",
+        "horse",
+        "ship",
+        "truck",
+    )
+
+    # Ensure an image was properly uploaded to our endpoint.
+    if flask.request.method == "POST":
+        print(flask.request.files)
+        if flask.request.files.get("image"):
+            # Read the image in PIL format
+            f = flask.request.files["image"]
+            f.save(f.filename)  # save file to disk
+
+            # Preprocess the image and prepare it for classification.
+            image = prepare_image(f.filename)
+
+            # Classify the input image and then initialize the list of predictions to return to the client.
+            outputs = model(image)
+            _, predicted = torch.max(outputs, 1)
+            class_prediction = predicted.numpy()[0]
+            data["prediction"] = classes[class_prediction]
+
+            # Indicate that the request was a success.
+            data["success"] = True
+            os.remove(f.filename)
+
+            # Return the data dictionary as a JSON response
+            return flask.jsonify(data)
 
 
 def load_model() -> None:

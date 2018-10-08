@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Image Classification: CIFAR-10 Model</h1>
-    <form action="/predict" method="post" enctype="multipart/form-data">
+    <form action="/prediction" method="post" enctype="multipart/form-data">
       <input type="file" name="image" value="Upload">
       <input type="submit" value="Predict"> 
       <p>Prediction: {% if label %} {{ label }} {% endif %}</p>
