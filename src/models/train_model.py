@@ -53,7 +53,14 @@ We will do the following steps in order:
 
 Using ``torchvision``, it’s extremely easy to load CIFAR10.
 """
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 
@@ -95,8 +102,6 @@ classes = (
 ########################################################################
 # Let us show some of the training images, for fun.
 
-import matplotlib.pyplot as plt
-import numpy as np
 
 # functions to show an image
 
@@ -122,9 +127,6 @@ print(" ".join("%5s" % classes[labels[j]] for j in range(4)))
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 # Copy the neural network from the Neural Networks section before and modify it to
 # take 3-channel images (instead of 1-channel images as it was defined).
-
-import torch.nn as nn
-import torch.nn.functional as F
 
 
 class Net(nn.Module):
@@ -155,7 +157,6 @@ net = Net()
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 # Let's use a Classification Cross-Entropy loss and SGD with momentum.
 
-import torch.optim as optim
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
@@ -278,7 +279,6 @@ for i in range(10):
 # save model to disk
 #########################################
 print("Saving model to disk")
-from pathlib import Path
 
 PATH = Path("models") / "cifar-weights.pt"
 PATH = PATH.resolve().absolute()
